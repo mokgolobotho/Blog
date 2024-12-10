@@ -22,7 +22,9 @@
         <!-- Links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">Link 1</a>
+            <a class="nav-link" href="{%  url 'BlogApp:createAblog' %}"
+              >Create an article</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link 2</a>
@@ -35,7 +37,7 @@
     </nav>
 
     <div class="container mt-4 flex-grow-1">
-      {% block content %} {% endblock %}
+      {% block content %} {% endblock %} {% block form_block %} {% endblock %}
     </div>
 
     <footer class="footer mt-auto py-3 bg-light">

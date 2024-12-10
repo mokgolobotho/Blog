@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %} Create blog {% endblock content %}
+{% block form_block %}
+<form method="POST">
+  {% csrf_token %}
+  <h2>Article Title</h2>
+  <input class="form-control" id="artTt" type="text" name="" value="" />
+  <br />
+  <h2>Choose An Image</h2>
+  <input class="form-control" id="artImg" type="file" name="" value="" />
+  <br />
+  <h2>Article Text</h2>
+  <textarea class="form-control" rows="5" id="artTxt"></textarea>
+  <br />
+  <h2>Article Category</h2>
+  <input class="form-control" id="artCategory" type="text" name="" value="" />
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock form_block %}
