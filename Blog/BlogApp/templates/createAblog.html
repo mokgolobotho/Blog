@@ -3,20 +3,20 @@
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <h2>Article Title</h2>
-  <input class="form-control" id="artTt" type="text" name="artTt" value="" />
+  <input class="form-control" id="artTt" type="text" name="title" value="" />
   <br />
   <h2>Choose An Image</h2>
-  <input class="form-control" id="artImg" type="file" name="artImg" value="" />
+  <input class="form-control" id="artImg" type="file" name="image" value="" />
   <br />
   <h2>Article Text</h2>
-  <textarea class="form-control" rows="5" id="artTxt" name="artImg"></textarea>
+  <textarea class="form-control" rows="5" id="artTxt" name="text"></textarea>
   <br />
   <h2>Article Category</h2>
   <input
     class="form-control"
     id="artCategory"
     type="text"
-    name="artCategory"
+    name="category"
     value=""
   />
   <br />

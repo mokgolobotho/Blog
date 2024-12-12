@@ -6,4 +6,3 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='images/')
     text = models.TextField()
     category = models.CharField(max_length=100)
-    

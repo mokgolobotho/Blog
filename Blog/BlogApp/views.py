@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import BlogForm
+from .models import Blog
 
 # Create your views here.
 def authView(request):
@@ -16,7 +17,8 @@ def authView(request):
 
 @login_required
 def home(request):
-    return render(request, "home.html", {})
+    blogs = Blog.objects.all()
+    return render(request, "home.html", {'blogs': blogs})
 
 def createAblog(request):
     if request.method == "POST":
