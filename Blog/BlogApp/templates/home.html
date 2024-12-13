@@ -7,23 +7,79 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for blog in blogs %}
     <div class="col-md-4 mb-4">
-      <div class="card h-100 border-secondary">
-        <img
-          src="{{ blog.image.url }}"
-          class="img-thumbnail w-100 h-100"
-          style="object-fit: cover"
-          alt="Blog Image"
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ blog.title }}</h5>
-          <p class="card-text">{{ blog.text|truncatechars:100 }}</p>
+      <div class="flip-card" style="width: 400px; height: 500px">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img
+              src="{{ blog.image.url }}"
+              class="img-thumbnail w-100 h-100"
+              style="object-fit: cover"
+              alt="Blog Image"
+            />
+          </div>
+          <div
+            class="flip-card-back d-flex flex-column justify-content-between p-3"
+          >
+            <div>
+              <h5 class="card-title">{{ blog.title }}</h5>
+              <p class="card-text">{{ blog.category|truncatechars:100 }}</p>
+            </div>
+            <button
+              class="btn btn-primary mt-auto"
+              data-bs-toggle="modal"
+              data-bs-target="#blogModal{{ blog.id }}"
+            >
+              Read More
+            </button>
+          </div>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">{{ blog.category }}</small>
+      </div>
+      <div
+        class="modal fade"
+        id="blogModal{{ blog.id }}"
+        tabindex="-1"
+        aria-labelledby="blogModalLabel{{ blog.id }}"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="blogModalLabel{{ blog.id }}">
+                {{ blog.title }}
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body d-flex">
+              <img
+                src="{{ blog.image.url }}"
+                class="img-thumbnail w-50 me-3"
+                style="object-fit: cover"
+                alt="Blog Image"
+              />
+              <div>
+                <h5>{{ blog.title }}</h5>
+                <p>{{ blog.text }}</p>
+                <small class="text-muted">{{ blog.category }}</small>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
 </div>

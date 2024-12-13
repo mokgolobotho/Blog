@@ -1,3 +1,12 @@
 .nav-background-color {
   background-color: #116466;
 }
+
+body {
+  padding-top: 56px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
