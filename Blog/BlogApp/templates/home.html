@@ -1,8 +1,43 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block nav%}
+<nav
+  class="navbar navbar-expand-sm bg-dark navbar-dark nav-background-color fixed-top"
+>
+  <div class="container">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{%  url 'BlogApp:createAblog' %}"
+          >Create an article</a
+        >
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{%  url 'BlogApp:myBlogs' %}">My articles</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <form action="{% url 'BlogApp:logout' %}" method="POST">
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="nav-link btn btn-link"
+            style="background: none; border: none"
+          >
+            Logout
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock nav %} {% block content %}
 <div class="container">
   <div class="jumbotron">
-    <h1>Thabangs's Blog</h1>
-    <p>Blog about Thabang Mokgolobotho</p>
+    <h1>Blogs Page</h1>
+    <p>Blogs on the move</p>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for blog in blogs %}
@@ -24,13 +59,23 @@
               <h5 class="card-title">{{ blog.title }}</h5>
               <p class="card-text">{{ blog.category|truncatechars:100 }}</p>
             </div>
-            <button
-              class="btn btn-primary mt-auto"
-              data-bs-toggle="modal"
-              data-bs-target="#blogModal{{ blog.id }}"
-            >
-              Read More
-            </button>
+            <div>
+              <button
+                class="btn btn-primary mt-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#viewCommentsModal{{ blog.id }}"
+              >
+                View Comments
+              </button>
+
+              <button
+                class="btn btn-primary mt-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#blogModal{{ blog.id }}"
+              >
+                Read More
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -71,11 +116,112 @@
               <button
                 type="button"
                 class="btn btn-secondary"
+                data-bs-toggle="modal"
+                data-bs-target="#commentModal{{ blog.id }}"
+              >
+                Comment
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="viewCommentsModal{{ blog.id }}"
+        tabindex="-1"
+        aria-labelledby="viewCommentsModalLabel{{ blog.id }}"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="viewCommentsModalLabel{{ blog.id }}">
+                Comments for {{ blog.title }}
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {% if blog.comments.all %}
+              <ul class="list-group">
+                {% for comment in blog.comments.all %}
+                <li class="list-group-item">
+                  <strong>{{ comment.user.username }}</strong>
+                  <small class="text-muted">{{ comment.created_at }}</small>
+                  <p>{{ comment.comment }}</p>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="text-muted">No comments available for this blog.</p>
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="commentModal{{ blog.id }}"
+        tabindex="-1"
+        aria-labelledby="commentModalLabel{{ blog.id }}"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="commentModalLabel{{ blog.id }}">
+                Add a Comment
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <form method="POST" action="{% url 'BlogApp:addComment' blog.id %}">
+              {% csrf_token %}
+              <div class="modal-body">
+                <textarea
+                  class="form-control"
+                  name="comment"
+                  rows="4"
+                  placeholder="Write your comment here..."
+                  required
+                ></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary">Submit</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

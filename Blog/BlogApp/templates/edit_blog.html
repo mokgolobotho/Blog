@@ -31,17 +31,33 @@
     </ul>
   </div>
 </nav>
-{% endblock nav %} {% block content %} Create blog
+{% endblock nav %} {% block content %}
+<h2>Edit Blog</h2>
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <h2>Article Title</h2>
-  <input class="form-control" id="artTt" type="text" name="title" value="" />
+  <input
+    class="form-control"
+    id="artTt"
+    type="text"
+    name="title"
+    value="{{ blog.title }}"
+  />
   <br />
   <h2>Choose An Image</h2>
-  <input class="form-control" id="artImg" type="file" name="image" value="" />
+  <input class="form-control" id="artImg" type="file" name="image" />
+  <br />
+  <h2>Current Image</h2>
+  <img
+    src="{{ blog.image.url }}"
+    alt="Blog Image"
+    style="width: 600px; height: auto"
+  />
   <br />
   <h2>Article Text</h2>
-  <textarea class="form-control" rows="5" id="artTxt" name="text"></textarea>
+  <textarea class="form-control" rows="5" id="artTxt" name="text">
+{{blog.text}}</textarea
+  >
   <br />
   <h2>Article Category</h2>
   <input
@@ -49,7 +65,7 @@
     id="artCategory"
     type="text"
     name="category"
-    value=""
+    value="{{ blog.category }}"
   />
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>

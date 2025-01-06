@@ -145,18 +145,11 @@
     {% block extra_head %}{% endblock %}
   </head>
   <body class="d-flex flex-column min-vh-100">
+    {% block nav%}
     <nav
       class="navbar navbar-expand-sm bg-dark navbar-dark nav-background-color fixed-top"
     >
       <div class="container">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{%  url 'BlogApp:createAblog' %}"
-              >Create an article</a
-            >
-          </li>
-        </ul>
-
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="{%  url 'BlogApp:logout' %}">Logout</a>
@@ -164,6 +157,7 @@
         </ul>
       </div>
     </nav>
+    {% endblock %}
 
     <div class="container mt-4 flex-grow-1">
       {% block content %} {% endblock %} {% block form_block %} {% endblock %}
