@@ -60,13 +60,16 @@
   >
   <br />
   <h2>Article Category</h2>
-  <input
-    class="form-control"
-    id="artCategory"
-    type="text"
-    name="category"
-    value="{{ blog.category }}"
-  />
+  <select class="form-control" id="artCategory" name="category">
+    <option value="null" {% if blog.category == "null" %}selected{% endif %}>Select a category</option>
+    <option value="Technology" {% if blog.category == "Technology" %}selected{% endif %}>Technology</option>
+    <option value="Health" {% if blog.category == "Health" %}selected{% endif %}>Health</option>
+    <option value="Education" {% if blog.category == "Education" %}selected{% endif %}>Education</option>
+    <option value="Lifestyle" {% if blog.category == "Lifestyle" %}selected{% endif %}>Lifestyle</option>
+    <option value="Business" {% if blog.category == "Business" %}selected{% endif %}>Business</option>
+    <option value="Car" {% if blog.category == "Car" %}selected{% endif %}>Car</option>
+    <option value="Nature" {% if blog.category == "Nature" %}selected{% endif %}>Nature</option>
+  </select>
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

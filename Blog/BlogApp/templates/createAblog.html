@@ -44,13 +44,16 @@
   <textarea class="form-control" rows="5" id="artTxt" name="text"></textarea>
   <br />
   <h2>Article Category</h2>
-  <input
-    class="form-control"
-    id="artCategory"
-    type="text"
-    name="category"
-    value=""
-  />
+  <select class="form-control" id="artCategory" name="category">
+    <option value="null">Select a category</option>
+    <option value="Technology">Technology</option>
+    <option value="Health">Health</option>
+    <option value="Education">Education</option>
+    <option value="Lifestyle">Lifestyle</option>
+    <option value="Business">Business</option>
+    <option value="Car">Car</option>
+    <option value="Nature">Nature</option>
+  </select>
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
